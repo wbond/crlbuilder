@@ -32,6 +32,21 @@ def writer(func):
     return property(fget=lambda self: getattr(self, '_%s' % name), fset=func)
 
 
+def _object_name(value):
+    """
+    :param value:
+        A value to get the object name of
+
+    :return:
+        A unicode string of the object name
+    """
+
+    cls = value.__class__
+    if cls.__module__ == 'builtins':
+        return cls.__name__
+    return '%s.%s' % (cls.__module__, cls.__name__)
+
+
 class CertificateListBuilder(object):
 
     _hash_algo = None
@@ -137,7 +152,7 @@ class CertificateListBuilder(object):
 
         is_oscrypto = isinstance(value, asymmetric.Certificate)
         if not is_oscrypto and not isinstance(value, x509.Certificate):
-            raise ValueError('issuer must be an instance of asn1crypto.x509.Certificate or oscrypto.asymmetric.Certificate, not %s' % value.__class__.__name__)
+            raise ValueError('issuer must be an instance of asn1crypto.x509.Certificate or oscrypto.asymmetric.Certificate, not %s' % _object_name(value))
 
         if is_oscrypto:
             value = value.asn1
@@ -162,7 +177,7 @@ class CertificateListBuilder(object):
         if value is not None:
             is_oscrypto = isinstance(value, asymmetric.Certificate)
             if not is_oscrypto and not isinstance(value, x509.Certificate):
-                raise ValueError('certificate_issuer must be an instance of asn1crypto.x509.Certificate or oscrypto.asymmetric.Certificate, not %s' % value.__class__.__name__)
+                raise ValueError('certificate_issuer must be an instance of asn1crypto.x509.Certificate or oscrypto.asymmetric.Certificate, not %s' % _object_name(value))
 
             if is_oscrypto:
                 value = value.asn1
@@ -194,7 +209,7 @@ class CertificateListBuilder(object):
         """
 
         if not isinstance(value, datetime):
-            raise ValueError('this_update must be an instance of datetime.datetime, not %s' % value.__class__.__name__)
+            raise ValueError('this_update must be an instance of datetime.datetime, not %s' % _object_name(value))
 
         self._this_update = value
 
@@ -206,7 +221,7 @@ class CertificateListBuilder(object):
         """
 
         if not isinstance(value, datetime):
-            raise ValueError('next_update must be an instance of datetime.datetime, not %s' % value.__class__.__name__)
+            raise ValueError('next_update must be an instance of datetime.datetime, not %s' % _object_name(value))
 
         self._next_update = value
 
@@ -234,7 +249,7 @@ class CertificateListBuilder(object):
     @delta_of.setter
     def delta_of(self, value):
         if value is not None and not isinstance(value, int_types):
-            raise ValueError('delta_of must be an integer, not %s' % value.__class__.__name__)
+            raise ValueError('delta_of must be an integer, not %s' % _object_name(value))
 
         if self._freshest_crl is not None:
             raise ValueError('delta_of can not be set if delta_crl_url is set')
@@ -271,7 +286,7 @@ class CertificateListBuilder(object):
             raise ValueError('delta_crl_url can not be set if delta_of is set')
 
         if not isinstance(value, str_cls):
-            raise ValueError('delta_crl_url must be a unicode string , not %s' % (value.__class__.__name__))
+            raise ValueError('delta_crl_url must be a unicode string , not %s' % (_object_name(value)))
 
         general_names = x509.GeneralNames([
             x509.GeneralName(
@@ -312,7 +327,7 @@ class CertificateListBuilder(object):
     @issuer_certificate_url.setter
     def issuer_certificate_url(self, value):
         if value is not None and not isinstance(value, str_cls):
-            raise ValueError('issuer_certificate_url must be a unicode string, not %s' % value.__class__.__name__)
+            raise ValueError('issuer_certificate_url must be a unicode string, not %s' % _object_name(value))
 
         self._authority_information_access = x509.AuthorityInfoAccessSyntax([
             {
@@ -386,7 +401,7 @@ class CertificateListBuilder(object):
         spec = extension.spec('extn_value')
 
         if not isinstance(value, spec) and value is not None:
-            raise ValueError('value must be an instance of %s, not %s' % (spec.__name__, value.__class__.__name__))
+            raise ValueError('value must be an instance of %s.%s, not %s' % (spec.__module__, spec.__name__, _object_name(value)))
 
         if name in self._special_extensions:
             setattr(self, '_%s' % name, value)
@@ -433,7 +448,7 @@ class CertificateListBuilder(object):
 
         is_oscrypto = isinstance(issuer_private_key, asymmetric.PrivateKey)
         if not isinstance(issuer_private_key, keys.PrivateKeyInfo) and not is_oscrypto:
-            raise ValueError('issuer_private_key must be an instance of asn1crypto.keys.PrivateKeyInfo or oscrypto.asymmetric.PrivateKey, not %s' % issuer_private_key.__class__.__name__)
+            raise ValueError('issuer_private_key must be an instance of asn1crypto.keys.PrivateKeyInfo or oscrypto.asymmetric.PrivateKey, not %s' % _object_name(issuer_private_key))
 
         if self._this_update is None:
             self._this_update = datetime.now(timezone.utc)
