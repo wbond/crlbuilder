@@ -362,6 +362,18 @@ class CertificateListBuilder(object):
              - "privilege_withdrawn" - one of the usages for a certificate was removed
         """
 
+        if not isinstance(serial_number, int_types):
+            raise ValueError('serial_number must be an integer, not %s' % _object_name(serial_number))
+
+        if not isinstance(revocation_date, datetime):
+            raise ValueError('revocation_date must be an instance of datetime.datetime, not %s' % _object_name(revocation_date))
+
+        if not isinstance(reason, str_cls):
+            raise ValueError("reason must be a unicode string, not %s" % _object_name(reason))
+
+        if reason not in {'key_compromise', 'ca_compromise', 'affiliation_changed', 'superseded', 'cessation_of_operation', 'certificate_hold', 'remove_from_crl', 'privilege_withdrawn'}:
+            raise ValueError('reason must be one of "key_compromise", "ca_compromise", "affiliation_changed", "superseded", "cessation_of_operation", "certificate_hold", "remove_from_crl", "privilege_withdrawn", not %s' % repr(reason))
+
         self._revoked_certificates.append(crl.RevokedCertificate({
             'user_certificate': serial_number,
             'revocation_date': x509.Time(name='utc_time', value=revocation_date),
