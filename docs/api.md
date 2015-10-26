@@ -1,5 +1,21 @@
 # crlbuilder API Documentation
 
+### `pem_armor_crl()` function
+
+> ```python
+> def pem_armor_crl(certificate_list):
+>     """
+>     :param certificate_list:
+>         An asn1crypto.crl.CertificateList object of the CRL to armor.
+>         Typically this is obtained from CertificateListBuilder.build().
+>
+>     :return:
+>         A byte string of the PEM-encoded CRL
+>     """
+> ```
+>
+> Encodes a CRL into PEM format
+
 ### `CertificateListBuilder()` class
 
 > ##### constructor

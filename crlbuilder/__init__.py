@@ -7,7 +7,7 @@ import re
 import sys
 import textwrap
 
-from asn1crypto import x509, keys, crl
+from asn1crypto import x509, keys, crl, pem
 from asn1crypto.util import timezone
 from oscrypto import asymmetric
 
@@ -31,6 +31,30 @@ def _writer(func):
 
     name = func.__name__
     return property(fget=lambda self: getattr(self, '_%s' % name), fset=func)
+
+
+def pem_armor_crl(certificate_list):
+    """
+    Encodes a CRL into PEM format
+
+    :param certificate_list:
+        An asn1crypto.crl.CertificateList object of the CRL to armor.
+        Typically this is obtained from CertificateListBuilder.build().
+
+    :return:
+        A byte string of the PEM-encoded CRL
+    """
+
+    if not isinstance(certificate_list, crl.CertificateList):
+        raise TypeError(_pretty_message(
+            '''
+            certificate_list must be an instance of
+            asn1crypto.crl.CertificateList, not %s
+            ''',
+            _type_name(certificate_list)
+        ))
+
+    return pem.armor('X509 CRL', certificate_list.dump())
 
 
 class CertificateListBuilder(object):
