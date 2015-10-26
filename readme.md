@@ -23,7 +23,7 @@ A library for creating and signing certificate revocation lists (CRLs).
 
 ## Version
 
-0.9.0 - [changelog](changelog.md)
+0.10.0 - [changelog](changelog.md)
 
 ## Installation
 
