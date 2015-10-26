@@ -1,13 +1,12 @@
 # crlbuilder
 
-A library for creating and signing certificate revocation lists (CRLs). Uses the
-compilation-free, OS-based Python crypto library *oscrypt* for cryptographic
-primitives.
+A library for creating and signing certificate revocation lists (CRLs).
 
 *crlbuilder* is part of the modularcrypto family of Python packages:
 
  - [asn1crypto](https://github.com/wbond/asn1crypto)
  - [oscrypto](https://github.com/wbond/oscrypto)
+ - [csrbuilder](https://github.com/wbond/csrbuilder)
  - [certbuilder](https://github.com/wbond/certbuilder)
  - [crlbuilder](https://github.com/wbond/crlbuilder)
 
@@ -20,7 +19,7 @@ primitives.
 
  - [*asn1crypto*](https://github.com/wbond/asn1crypto)
  - [*oscrypto*](https://github.com/wbond/oscrypto)
- - Python 2.7, 3.3, 3.4, pypy or pypy3
+ - Python 2.6, 2.7, 3.2, 3.3, 3.4, 3.5, pypy or pypy3
 
 ## Version
 
@@ -29,7 +28,7 @@ primitives.
 ## Installation
 
 ```bash
-pip install git+git://github.com/wbond/asn1crypto.git
+pip install asn1crypto
 pip install git+git://github.com/wbond/oscrypto.git
 pip install git+git://github.com/wbond/crlbuilder.git
 ```
