@@ -24,7 +24,7 @@ else:
 __version__ = '0.9.0'
 
 
-def writer(func):
+def _writer(func):
     """
     Decorator for a custom writer, but a default reader
     """
@@ -130,7 +130,7 @@ class CertificateListBuilder(object):
                 value=value
             )
 
-    @writer
+    @_writer
     def issuer(self, value):
         """
         An asn1crypto.x509.Certificate object of the issuer. Used to populate
@@ -168,7 +168,7 @@ class CertificateListBuilder(object):
             'key_identifier': value.key_identifier
         })
 
-    @writer
+    @_writer
     def certificate_issuer(self, value):
         """
         An asn1crypto.x509.Certificate object of the issuer of the certificates.
@@ -203,7 +203,7 @@ class CertificateListBuilder(object):
 
         self._issuing_distribution_point['indirect_crl'] = value is not None
 
-    @writer
+    @_writer
     def crl_number(self, value):
         """
         An integer that is monotonically increased for each published CRL. Delta
@@ -221,7 +221,7 @@ class CertificateListBuilder(object):
 
         self._crl_number = value
 
-    @writer
+    @_writer
     def this_update(self, value):
         """
         A datetime.datetime object of when the certificate list was created.
@@ -237,7 +237,7 @@ class CertificateListBuilder(object):
 
         self._this_update = value
 
-    @writer
+    @_writer
     def next_update(self, value):
         """
         A datetime.datetime object of when the certificate list will next be
@@ -254,7 +254,7 @@ class CertificateListBuilder(object):
 
         self._next_update = value
 
-    @writer
+    @_writer
     def hash_algo(self, value):
         """
         A unicode string of the hash algorithm to use when signing the
