@@ -71,12 +71,12 @@
 >
 > ##### `.this_update` attribute
 >
-> > A datetime.datetime object of when the certificate becomes valid.
+> > A datetime.datetime object of when the certificate list was created.
 >
 > ##### `.next_update` attribute
 >
-> > A datetime.datetime object of when the certificate is last to be
-> > considered valid.
+> > A datetime.datetime object of when the certificate list will next be
+> > updated.
 >
 > ##### `.hash_algo` attribute
 >
