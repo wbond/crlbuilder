@@ -6,7 +6,6 @@ from setuptools import setup, find_packages, Command
 import crlbuilder
 
 
-
 class CleanCommand(Command):
     user_options = []
 

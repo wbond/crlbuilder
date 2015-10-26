@@ -10,10 +10,13 @@ from asn1crypto.util import timezone
 from oscrypto import asymmetric
 from crlbuilder import CertificateListBuilder
 
+from ._unittest_compat import patch
+
+patch()
+
 
 tests_root = os.path.dirname(__file__)
 fixtures_dir = os.path.join(tests_root, 'fixtures')
-
 
 
 class CertificateListBuilderTests(unittest.TestCase):
@@ -45,7 +48,7 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(root_certificate.asn1.subject.sha256, tbs_cert_list['issuer'].sha256)
         self.assertGreaterEqual(now, tbs_cert_list['this_update'].native)
         self.assertLess(now, tbs_cert_list['next_update'].native)
-        self.assertEqual({'issuing_distribution_point'}, new_cert_list.critical_extensions)
+        self.assertEqual(set(['issuing_distribution_point']), new_cert_list.critical_extensions)
 
         self.assertEqual(1, len(revoked_certificates))
         revoked_cert = revoked_certificates[0]
@@ -61,8 +64,14 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(50000, new_cert_list.crl_number_value.native)
         self.assertEqual(None, new_cert_list.delta_crl_indicator_value)
         self.assertEqual('full_name', new_cert_list.issuing_distribution_point_value['distribution_point'].name)
-        self.assertEqual('uniform_resource_identifier', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name)
-        self.assertEqual('http://crl.example.com', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native)
+        self.assertEqual(
+            'uniform_resource_identifier',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name
+        )
+        self.assertEqual(
+            'http://crl.example.com',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native
+        )
         self.assertEqual(root_certificate.asn1.key_identifier, new_cert_list.authority_key_identifier)
         self.assertEqual(None, new_cert_list.freshest_crl_value)
         self.assertEqual(None, new_cert_list.authority_information_access_value)
@@ -70,7 +79,10 @@ class CertificateListBuilderTests(unittest.TestCase):
     def test_build_indirect_crl(self):
         root_certificate = asymmetric.load_certificate(os.path.join(fixtures_dir, 'root.crt'))
 
-        crl_issuer_private_key = asymmetric.load_private_key(os.path.join(fixtures_dir, 'crl_issuer.key'), 'password123')
+        crl_issuer_private_key = asymmetric.load_private_key(
+            os.path.join(fixtures_dir, 'crl_issuer.key'),
+            'password123'
+        )
         crl_issuer_certificate = asymmetric.load_certificate(os.path.join(fixtures_dir, 'crl_issuer.crt'))
 
         builder = CertificateListBuilder(
@@ -104,14 +116,14 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(crl_issuer_certificate.asn1.subject.sha256, tbs_cert_list['issuer'].sha256)
         self.assertGreaterEqual(now, tbs_cert_list['this_update'].native)
         self.assertLess(now, tbs_cert_list['next_update'].native)
-        self.assertEqual({'issuing_distribution_point'}, new_cert_list.critical_extensions)
+        self.assertEqual(set(['issuing_distribution_point']), new_cert_list.critical_extensions)
 
         self.assertEqual(2, len(revoked_certificates))
 
         revoked_cert_1 = revoked_certificates[0]
         self.assertEqual(29232181, revoked_cert_1['user_certificate'].native)
         self.assertEqual(revoked_at, revoked_cert_1['revocation_date'].native)
-        self.assertEqual({'certificate_issuer'}, revoked_cert_1.critical_extensions)
+        self.assertEqual(set(['certificate_issuer']), revoked_cert_1.critical_extensions)
         self.assertEqual('key_compromise', revoked_cert_1.crl_reason_value.native)
         self.assertEqual(None, revoked_cert_1.invalidity_date_value)
         self.assertEqual('directory_name', revoked_cert_1.certificate_issuer_value[0].name)
@@ -131,8 +143,14 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(50000, new_cert_list.crl_number_value.native)
         self.assertEqual(None, new_cert_list.delta_crl_indicator_value)
         self.assertEqual('full_name', new_cert_list.issuing_distribution_point_value['distribution_point'].name)
-        self.assertEqual('uniform_resource_identifier', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name)
-        self.assertEqual('http://crl.example.com', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native)
+        self.assertEqual(
+            'uniform_resource_identifier',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name
+        )
+        self.assertEqual(
+            'http://crl.example.com',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native
+        )
         self.assertEqual(crl_issuer_certificate.asn1.key_identifier, new_cert_list.authority_key_identifier)
         self.assertEqual('http://crl.example.com/delta', new_cert_list.delta_crl_distribution_points[0].url)
         self.assertEqual(['http://download.example.com/crl_issuer'], new_cert_list.issuer_cert_urls)
@@ -140,7 +158,10 @@ class CertificateListBuilderTests(unittest.TestCase):
     def test_build_delta_crl(self):
         root_certificate = asymmetric.load_certificate(os.path.join(fixtures_dir, 'root.crt'))
 
-        crl_issuer_private_key = asymmetric.load_private_key(os.path.join(fixtures_dir, 'crl_issuer.key'), 'password123')
+        crl_issuer_private_key = asymmetric.load_private_key(
+            os.path.join(fixtures_dir, 'crl_issuer.key'),
+            'password123'
+        )
         crl_issuer_certificate = asymmetric.load_certificate(os.path.join(fixtures_dir, 'crl_issuer.crt'))
 
         builder = CertificateListBuilder(
@@ -168,7 +189,7 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(crl_issuer_certificate.asn1.subject.sha256, tbs_cert_list['issuer'].sha256)
         self.assertGreaterEqual(now, tbs_cert_list['this_update'].native)
         self.assertLess(now, tbs_cert_list['next_update'].native)
-        self.assertEqual({'issuing_distribution_point', 'delta_crl_indicator'}, new_cert_list.critical_extensions)
+        self.assertEqual(set(['issuing_distribution_point', 'delta_crl_indicator']), new_cert_list.critical_extensions)
 
         self.assertEqual(0, len(revoked_certificates))
 
@@ -176,8 +197,14 @@ class CertificateListBuilderTests(unittest.TestCase):
         self.assertEqual(50001, new_cert_list.crl_number_value.native)
         self.assertEqual(50000, new_cert_list.delta_crl_indicator_value.native)
         self.assertEqual('full_name', new_cert_list.issuing_distribution_point_value['distribution_point'].name)
-        self.assertEqual('uniform_resource_identifier', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name)
-        self.assertEqual('http://crl.example.com/delta', new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native)
+        self.assertEqual(
+            'uniform_resource_identifier',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].name
+        )
+        self.assertEqual(
+            'http://crl.example.com/delta',
+            new_cert_list.issuing_distribution_point_value['distribution_point'].chosen[0].native
+        )
         self.assertEqual(crl_issuer_certificate.asn1.key_identifier, new_cert_list.authority_key_identifier)
         self.assertEqual([], new_cert_list.delta_crl_distribution_points)
         self.assertEqual(['http://download.example.com/crl_issuer'], new_cert_list.issuer_cert_urls)
