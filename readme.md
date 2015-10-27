@@ -30,7 +30,7 @@ A library for creating and signing certificate revocation lists (CRLs).
 
 ```bash
 pip install asn1crypto
-pip install git+git://github.com/wbond/oscrypto.git
+pip install oscrypto
 pip install git+git://github.com/wbond/crlbuilder.git
 ```
 
