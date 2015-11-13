@@ -1,10 +1,13 @@
+# coding: utf-8
+from __future__ import unicode_literals, division, absolute_import, print_function
+
 import os
 
 from oscrypto import asymmetric
 from certbuilder import CertificateBuilder
 
 
-fixtures_dir = os.path.join(os.path.dirname(__file__), 'tests', 'fixtures')
+fixtures_dir = os.path.join(os.path.dirname(__file__), '..', 'tests', 'fixtures')
 
 root_ca_public_key, root_ca_private_key = asymmetric.generate_pair('rsa', bit_size=2048)
 
