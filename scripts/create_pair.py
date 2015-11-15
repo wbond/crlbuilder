@@ -47,7 +47,7 @@ builder = CertificateBuilder(
     },
     root_crl_public_key
 )
-builder.key_usage = {'crl_signing'}
+builder.key_usage = set(['crl_signing'])
 builder.extended_key_usage = None
 builder.issuer = root_ca_certificate
 root_crl_certificate = builder.build(root_ca_private_key)
