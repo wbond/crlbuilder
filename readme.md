@@ -1,6 +1,7 @@
 # crlbuilder
 
-A library for creating and signing X.509 certificate revocation lists (CRLs).
+A Python library for creating and signing X.509 certificate revocation lists
+(CRLs).
 
  - [Related Crypto Libraries](#related-crypto-libraries)
  - [Current Release](#current-release)

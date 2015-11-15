@@ -27,7 +27,7 @@ setup(
     name='crlbuilder',
     version=crlbuilder.__version__,
 
-    description='Creates and signs certificate revocation lists (CRLs), including indirect and delta CRLs',
+    description='Creates and signs X.509 certificate revocation lists (CRLs), including indirect and delta CRLs',
     long_description='Docs for this project are maintained at https://github.com/wbond/crlbuilder#readme.',
 
     url='https://github.com/wbond/crlbuilder',
