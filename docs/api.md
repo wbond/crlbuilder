@@ -27,13 +27,13 @@
 > >         A unicode string of the URL the CRL is published at. This must
 > >         match the URL set on any certificates issued by the certificate
 > >         issuer for the CRL to be valid.
-> >     
+> >
 > >     :param issuer:
 > >         An asn1crypto.x509.Certificate object of the issuer of the CRL. If
 > >         generating an indirect CRL, the .certificate_issuer attribute
 > >         should be set to the asn1crypto.x509.Certificate object that issued
 > >         the certificates covered by the CRL.
-> >     
+> >
 > >     :param crl_number:
 > >         An integer of a monotonically increasing CRL number for the issuer
 > >     """
@@ -41,7 +41,7 @@
 > >
 > > Unless changed, certificate lists will use SHA-256 for the signature,
 > > and will be valid from the moment created for one week.
-> > 
+> >
 > > Supports indirect CRLs, but only for a single issuer.
 >
 > ##### `.url` attribute
@@ -52,7 +52,7 @@
 >
 > > An asn1crypto.x509.Certificate object of the issuer. Used to populate
 > > both the issuer field, but also the authority key identifier extension.
-> > 
+> >
 > > If the (CRL) issuer is not the issuer of the certificates (in which
 > > case the CRL is known as an indirect CRL), the .certificate_issuer
 > > attribute must be set to Certificate that issued the certificates.
@@ -92,7 +92,7 @@
 >
 > > Location of the delta CRL for the certificate. Will be one of the
 > > following types:
-> > 
+> >
 > >  - None for no delta CRL
 > >  - A unicode string of the URL to the delta CRL for this certificate
 >
@@ -101,7 +101,7 @@
 > > None or a unicode string of the URL to download the issuer's certificate
 > > from. This is mostly useful when generating an indirect CRL, since
 > > clients will likely not have a copy of the issuer's certificate.
-> > 
+> >
 > > The URL should serve the user the DER encoded certificate with the
 > > mime type of application/pkix-cert.
 >
@@ -112,13 +112,13 @@
 > >     """
 > >     :param serial_number:
 > >         The serial number of the revoked certificate
-> >     
+> >
 > >     :param revocation_date:
 > >         A datetime.datetime object of when the certificate was revoked
-> >     
+> >
 > >     :param reason:
 > >         A unicode string of one of:
-> >     
+> >
 > >          - "key_compromise" - when a private key is compromised
 > >          - "ca_compromise" - when the CA issuing the certificate is compromised
 > >          - "affiliation_changed" - when the certificate subject name changed
@@ -140,7 +140,7 @@
 > >     :param name:
 > >         A unicode string of an extension id name from
 > >         asn1crypto.crl.TBSCertListExtensionId
-> >     
+> >
 > >     :param value:
 > >         A value object per the specs defined by
 > >         asn1crypto.crl.TBSCertListExtension
@@ -150,7 +150,7 @@
 > > Sets the value for an extension using a fully constructed
 > > asn1crypto.core.Asn1Value object. Normally this should not be needed,
 > > and the convenience attributes should be sufficient.
-> > 
+> >
 > > See the definition of asn1crypto.crl.TBSCertListExtension to determine
 > > the appropriate object type for a given extension. Extensions are marked
 > > as critical when RFC5280 indicates so.
@@ -163,7 +163,7 @@
 > >     :param issuer_private_key:
 > >         An asn1crypto.keys.PrivateKeyInfo or oscrypto.asymmetric.PrivateKey
 > >         object for the private key of the CRL issuer
-> >     
+> >
 > >     :return:
 > >         An asn1crypto.crl.CertificateList object of the newly signed CRL
 > >     """
