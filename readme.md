@@ -27,7 +27,7 @@ A Python library for creating and signing X.509 certificate revocation lists
 
 ## Current Release
 
-0.10.1 - [changelog](changelog.md)
+0.10.2 - [changelog](changelog.md)
 
 ## Dependencies
 
