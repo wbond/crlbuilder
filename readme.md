@@ -13,6 +13,11 @@ A Python library for creating and signing X.509 certificate revocation lists
  - [Testing](#testing)
  - [Development](#development)
 
+[![Travis CI](https://api.travis-ci.org/wbond/crlbuilder.svg?branch=master)](https://travis-ci.org/wbond/crlbuilder)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/wbond/crlbuilder?branch=master&svg=true)](https://ci.appveyor.com/project/wbond/crlbuilder)
+[![Codecov](https://codecov.io/gh/wbond/crlbuilder/branch/master/graph/badge.svg)](https://codecov.io/gh/wbond/crlbuilder)
+[![PyPI](https://img.shields.io/pypi/v/crlbuilder.svg)](https://pypi.python.org/pypi/crlbuilder)
+
 ## Related Crypto Libraries
 
 *crlbuilder* is part of the modularcrypto family of Python packages:
