@@ -15,10 +15,7 @@ A Python library for creating and signing X.509 certificate revocation lists
  - [CI Tasks](#ci-tasks)
 
 [![GitHub Actions CI](https://github.com/wbond/crlbuilder/workflows/CI/badge.svg)](https://github.com/wbond/crlbuilder/actions?workflow=CI)
-[![Travis CI](https://api.travis-ci.org/wbond/crlbuilder.svg?branch=master)](https://travis-ci.org/wbond/crlbuilder)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/github/wbond/crlbuilder?branch=master&svg=true)](https://ci.appveyor.com/project/wbond/crlbuilder)
 [![CircleCI](https://circleci.com/gh/wbond/crlbuilder.svg?style=shield)](https://circleci.com/gh/wbond/crlbuilder)
-[![Codecov](https://codecov.io/gh/wbond/crlbuilder/branch/master/graph/badge.svg)](https://codecov.io/gh/wbond/crlbuilder)
 [![PyPI](https://img.shields.io/pypi/v/crlbuilder.svg)](https://pypi.python.org/pypi/crlbuilder)
 
 ## Related Crypto Libraries
@@ -41,7 +38,7 @@ A Python library for creating and signing X.509 certificate revocation lists
 
  - [*asn1crypto*](https://github.com/wbond/asn1crypto)
  - [*oscrypto*](https://github.com/wbond/oscrypto)
- - Python 2.6, 2.7, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8 or pypy
+ - Python 2.6, 2.7, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9 or pypy
 
 ## Installation
 
@@ -60,10 +57,8 @@ pip install crlbuilder
 
 ## Continuous Integration
 
- - [Windows](https://ci.appveyor.com/project/wbond/crlbuilder/history) via AppVeyor
- - [OS X](https://circleci.com/gh/wbond/crlbuilder) via CircleCI
- - [Linux](https://travis-ci.org/wbond/crlbuilder/builds) via Travis CI
- - [Test Coverage](https://codecov.io/gh/wbond/crlbuilder/commits) via Codecov
+ - [macOS, Linux, Windows](https://github.com/wbond/crlbuilder/actions/workflows/ci.yml) via GitHub Actions
+ - [arm64](https://circleci.com/gh/wbond/crlbuilder) via CircleCI
 
 ## Testing
 
