@@ -41,7 +41,7 @@ class CertificateListBuilderTests(unittest.TestCase):
 
         now = datetime.now(timezone.utc)
 
-        self.assertEqual('v3', tbs_cert_list['version'].native)
+        self.assertEqual('v2', tbs_cert_list['version'].native)
         self.assertEqual('rsassa_pkcs1v15', tbs_cert_list['signature'].signature_algo)
         self.assertEqual('sha256', tbs_cert_list['signature'].hash_algo)
         self.assertEqual(root_certificate.asn1.subject, tbs_cert_list['issuer'])
@@ -109,7 +109,7 @@ class CertificateListBuilderTests(unittest.TestCase):
 
         now = datetime.now(timezone.utc)
 
-        self.assertEqual('v3', tbs_cert_list['version'].native)
+        self.assertEqual('v2', tbs_cert_list['version'].native)
         self.assertEqual('rsassa_pkcs1v15', tbs_cert_list['signature'].signature_algo)
         self.assertEqual('sha256', tbs_cert_list['signature'].hash_algo)
         self.assertEqual(crl_issuer_certificate.asn1.subject, tbs_cert_list['issuer'])
@@ -182,7 +182,7 @@ class CertificateListBuilderTests(unittest.TestCase):
 
         now = datetime.now(timezone.utc)
 
-        self.assertEqual('v3', tbs_cert_list['version'].native)
+        self.assertEqual('v2', tbs_cert_list['version'].native)
         self.assertEqual('rsassa_pkcs1v15', tbs_cert_list['signature'].signature_algo)
         self.assertEqual('sha256', tbs_cert_list['signature'].hash_algo)
         self.assertEqual(crl_issuer_certificate.asn1.subject, tbs_cert_list['issuer'])
