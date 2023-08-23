@@ -640,7 +640,7 @@ class CertificateListBuilder(object):
             })
 
         tbs_cert_list = crl.TbsCertList({
-            'version': 'v3',
+            'version': 'v2',
             'signature': {
                 'algorithm': signature_algorithm_id
             },
